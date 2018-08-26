@@ -1,24 +1,26 @@
-{%set name = "tlslite" %}
-{%set version = "0.4.9" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "9b9a487694c239efea8cec4454a99a56ee1ae1a5f3af0858ccf8029e2ac2d42d" %}
+{% set name = "tlslite" %}
+{% set version = "0.4.9" %}
+{% set bundle = "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash_val = "9b9a487694c239efea8cec4454a99a56ee1ae1a5f3af0858ccf8029e2ac2d42d" %}
 
 package:
-  name: {{ name }}
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ bundle }}
   {{ hash_type }}: {{ hash_val }}
 
 build:
-  number: 0
-  script: python setup.py install
+  number: 1
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
-  build:
+  host:
     - python
+    - pip
 
   run:
     - python
@@ -33,6 +35,7 @@ about:
   home: http://trevp.net/tlslite/
   license: Public Domain and BSD 3-Clause
   summary: 'tlslite implements SSL and TLS.'
+  dev_url: https://github.com/trevp/tlslite
 
 extra:
   recipe-maintainers:
