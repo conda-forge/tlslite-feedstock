@@ -1,7 +1,5 @@
-{%set name = "tlslite" %}
-{%set version = "0.4.9" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "9b9a487694c239efea8cec4454a99a56ee1ae1a5f3af0858ccf8029e2ac2d42d" %}
+{% set name = "tlslite" %}
+{% set version = "0.4.9" %}
 
 package:
   name: {{ name }}
@@ -10,16 +8,17 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash_val }}
+  sha256: 9b9a487694c239efea8cec4454a99a56ee1ae1a5f3af0858ccf8029e2ac2d42d
 
 build:
-  number: 0
-  script: python setup.py install
+  number: 1000
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  skip: true  # [py>36]
 
 requirements:
-  build:
+  host:
     - python
-
+    - pip
   run:
     - python
 
