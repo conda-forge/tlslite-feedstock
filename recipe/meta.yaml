@@ -6,13 +6,12 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 9b9a487694c239efea8cec4454a99a56ee1ae1a5f3af0858ccf8029e2ac2d42d
 
 build:
   number: 1000
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
   skip: true  # [py>36]
 
 requirements:
@@ -31,7 +30,8 @@ test:
 about:
   home: http://trevp.net/tlslite/
   license: Public Domain and BSD 3-Clause
-  summary: 'tlslite implements SSL and TLS.'
+  license_file: LICENSE
+  summary: 'tlslite implements SSL and TLS'
 
 extra:
   recipe-maintainers:
